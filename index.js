@@ -32,38 +32,27 @@ function Wordcounter(str) {
 }
 
 resultbtn.addEventListener("click", () => {
-    document.getElementById("msg").innerHTML = "";
+    typewords.innerText=" ";
+    document.getElementById("msg").innerText = "";
     sentencebtn.innerText = "Start";
     let date = new Date();
-    endtime = date.getTime();
-    let totaltime = ((endtime - starttime) / 1000);
-    console.log(totaltime, "hello");
-    let totalstr = typewords.value;
-    let wordcount = Wordcounter(totalstr);
-    let speed=Math.round((wordcount/totaltime)*60);
-    let finalmsg="your total speed at"+speed+"in a "+"at per minute";
-    finalmsg+=comparewords(msg.innerText,totalstr);
-    msg.innerText=finalmsg;
-    msg.style.color="black";
-    console.log(finalmsg);
+        endtime = date.getTime();
+        const totalTime = (endtime - starttime) / 1000;
+        const userTypedWords = typewords.value;
+        const wordsCount = wordCounter(userTypedWords);
+        const speed = Math.round((wordsCount / totalTime) * 60);
+        const finalMsg = `You typed total ${wordsCount} words at speed of ${speed} words per minute.`;
+        document.getElementById("result").innerHTML = finalMsg;
+        
 });
-function comparewords(str1, str2) {
-    if (str2 === undefined || str2 === null) {
-        console.log("Invalid input: string is undefined or null");
-        return 0;
-    }
 
-    let words1 = str1.split(" ");
-    let words2 = str2.split(" ");
-    let cnt = 0;
-    words1.forEach(function(index, item) {
-        if (item == words2[index]) {
-            cnt++;
-        }
-    });
-    let errorwords = words1.length - cnt;
-    return "  " + cnt +"   " +"  correct out of " +"  "+ words1.length +"  " + "   words and total number of errors are  " +" "+ errorwords + ".";
-}
+    function wordCounter(str) {
+        const words = str.split(" ").filter((word) => word !== "");
+        return words.length;
+      }
+
+     
+
 
 
 async function getRandomSentence() {
